@@ -8,7 +8,7 @@
 <link href="ENVX1002-2024-Lecture-Topic04_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="ENVX1002-2024-Lecture-Topic04_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="ENVX1002-2024-Lecture-Topic04_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.3.353">
 
   <meta name="author" content="Dr.&nbsp;Floris van Ogtrop">
   <title>Topic 4 – Normal and sampling distributions</title>
@@ -854,6 +854,164 @@ Dr.&nbsp;Floris van Ogtrop
 </ul>
 
 <img data-src="images\Rye_grass.png" class="r-stretch"></section>
+
+<section id="sampling-distributions-1" class="title-slide slide level1 center">
+<h1>Sampling distributions</h1>
+<ul>
+<li>Here, we are dealing with 2 distributions:
+<ul>
+<li><ol type="1">
+<li>Measurement: <span class="math inline">X \sim N(300,50^2)</span></li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Sample Mean of 10 measurements: <span class="math inline">\overline X = \frac{1}{10}\Sigma_{i=1}^{10} X_i \sim ...</span></li>
+</ol></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="how-does-the-sampling-distribution-occur" class="title-slide slide level1 center">
+<h1>How does the sampling distribution occur?</h1>
+<ul>
+<li>http://onlinestatbook.com/stat_sim/sampling_dist/</li>
+<li>We have a population <span class="math inline">X</span>
+<ul>
+<li>We take a sample of size <span class="math inline">n</span> and we calculate the mean <span class="math inline">\overline x_1</span></li>
+<li>We take another sample of size <span class="math inline">n</span> and we calculate the mean <span class="math inline">\overline x_2</span></li>
+<li>We take another sample of size <span class="math inline">n</span> and we calculate the mean <span class="math inline">\overline x_3</span> … If we sample all possibilities, then the sampling distribution of <span class="math inline">\overline X = \frac{1}{10}\Sigma_{i=1}^{10} X_i</span> is the distribution of <span class="math inline">\{\overline x_1, \overline x_2, \overline x_3,...\}</span></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="distribution-for-a-sample-mean" class="title-slide slide level1 center">
+<h1>Distribution for a sample mean</h1>
+<ul>
+<li>if <span class="math inline">X\sim{N(\mu,\sigma^2)}</span></li>
+<li>then <span class="math inline">\overline X\sim{N(\mu,\frac{\sigma^2}{n})}</span></li>
+<li>Note that we call
+<ul>
+<li><span class="math inline">\sigma</span> the standard deviation such that <span class="math inline">sd(X)=\sigma</span>, and</li>
+<li><span class="math inline">\sigma/\sqrt n</span> the standard error such that <span class="math inline">sd(\overline X)=\sigma/\sqrt n</span></li>
+</ul></li>
+<li>The standard error is important for making inference on a sample populations i.e.&nbsp;how close your sample mean <span class="math inline">\overline x</span> is to the population mean <span class="math inline">\mu</span></li>
+</ul>
+</section>
+
+<section id="example-2" class="title-slide slide level1 center">
+<h1>Example</h1>
+<ul>
+<li>Rye grass root growth (in mg dry weight) follows the distribution <span class="math inline">X \sim N(300,50^2)</span>.
+<ul>
+<li><ol type="1">
+<li>One measurement is taken: how likely is it that the dry weight exceeds 320 mg?</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>10 measurements are taken: how likely is it that the sample mean exceeds 320 mg?</li>
+</ol></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="example-3" class="title-slide slide level1 center">
+<h1>Example</h1>
+<ul>
+<li><ol type="1">
+<li>X = Rye grass root growth <span class="math inline">\sim N(300,50^2)</span></li>
+</ol></li>
+</ul>
+<p><span class="math inline">P(X&gt;320) = P\left(\frac{X-\mu}{\sigma},\frac{x-\mu}{\sigma}\right)=P\left(\frac{X-300}{50}&gt;\frac{320-300}{50}\right)</span> <span class="math inline">=P(Z &gt; 0.4)</span> <span class="math inline">=1-P(Z &lt; 0.4)</span> <span class="math inline">\approx 1-0.66 = 0.34</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3445783</code></pre>
+</div>
+</div>
+</section>
+
+<section id="example-4" class="title-slide slide level1 center">
+<h1>Example</h1>
+<ul>
+<li><ol type="1">
+<li><span class="math inline">\overline X</span> = Rye grass root growth <span class="math inline">\sim N(300,\frac{50^2}{10})</span></li>
+</ol></li>
+</ul>
+<p><span class="math inline">P(\overline X&gt;320) = P\left(\frac{\overline X-\mu}{\frac{\sigma}{\sqrt{n}}},\frac{x-\mu}{\frac{\sigma}{\sqrt{n}}}\right)=P\left(\frac{\overline X-300}{\frac{50}{\sqrt{10}}}&gt;\frac{320-300}{\frac{50}{\sqrt{10}}}\right)</span> <span class="math inline">=P(Z &gt; 1.26)</span> <span class="math inline">=1-P(Z &lt; 1.26)</span> <span class="math inline">\approx 1-0.90 = 0.10</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fl">1.26</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1038347</code></pre>
+</div>
+</div>
+</section>
+
+<section id="central-limit-theorem" class="title-slide slide level1 center">
+<h1>Central limit theorem</h1>
+<ul>
+<li>what about if we sample from any old population such that <span class="math inline">X\sim{??(\mu,\sigma^2)}</span>?</li>
+<li>The it follows that <span class="math inline">X\approx{N(\mu,\sigma^2)}</span>) and this is as a result of the Central Limit Theorem</li>
+<li>The CLT is the most important result in this course, and in much of statistical theory.</li>
+<li>The CLT requires few assumptions:
+<ul>
+<li>We must have a `big enough’ sample size n;</li>
+<li>We must have finite variance <span class="math inline">\sigma^2&lt;\infty</span> What is a `big enough’ sample size? Some textbooks give a rule of thumb (eg <span class="math inline">n &gt; 25</span> or <span class="math inline">n &gt; 30</span>), but it all depends on the type of distribution. If <span class="math inline">X</span> is reasonably symmetric, then n could be small; if <span class="math inline">X</span> is highly asymmetric, then n could be larger.</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="central-limit-theorem-1" class="title-slide slide level1 center">
+<h1>Central limit theorem</h1>
+<ul>
+<li>We can demonstrate this in R (you will do it in the practical)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># Set parameters</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb29-3"><a href="#cb29-3"></a>number_of_samples <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a>sample_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">50</span>)</span>
+<span id="cb29-5"><a href="#cb29-5"></a>distributions <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb29-6"><a href="#cb29-6"></a>  <span class="st">"Normal"</span> <span class="ot">=</span> rnorm,</span>
+<span id="cb29-7"><a href="#cb29-7"></a>  <span class="st">"Exponential"</span> <span class="ot">=</span> rexp,</span>
+<span id="cb29-8"><a href="#cb29-8"></a>  <span class="st">"Chi-Squared (df = 2)"</span> <span class="ot">=</span> <span class="cf">function</span>(n) <span class="fu">rchisq</span>(n, <span class="at">df =</span> <span class="dv">2</span>)</span>
+<span id="cb29-9"><a href="#cb29-9"></a>)</span>
+<span id="cb29-10"><a href="#cb29-10"></a></span>
+<span id="cb29-11"><a href="#cb29-11"></a><span class="co"># Function to generate sample means from different distributions</span></span>
+<span id="cb29-12"><a href="#cb29-12"></a>generate_sample_means <span class="ot">&lt;-</span> <span class="cf">function</span>(sample_size, number_of_samples, dist_function) {</span>
+<span id="cb29-13"><a href="#cb29-13"></a>  <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>number_of_samples, <span class="cf">function</span>(x) <span class="fu">mean</span>(<span class="fu">dist_function</span>(sample_size)))</span>
+<span id="cb29-14"><a href="#cb29-14"></a>}</span>
+<span id="cb29-15"><a href="#cb29-15"></a></span>
+<span id="cb29-16"><a href="#cb29-16"></a><span class="co"># Generate sample means for different sample sizes and distributions</span></span>
+<span id="cb29-17"><a href="#cb29-17"></a>sample_means_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(distributions, <span class="cf">function</span>(dist_function) {</span>
+<span id="cb29-18"><a href="#cb29-18"></a>  <span class="fu">lapply</span>(sample_sizes, generate_sample_means, <span class="at">number_of_samples =</span> number_of_samples, <span class="at">dist_function =</span> dist_function)</span>
+<span id="cb29-19"><a href="#cb29-19"></a>})</span>
+<span id="cb29-20"><a href="#cb29-20"></a></span>
+<span id="cb29-21"><a href="#cb29-21"></a><span class="co"># Convert to data frame for plotting</span></span>
+<span id="cb29-22"><a href="#cb29-22"></a>sample_means_df <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="fu">names</span>(distributions), <span class="cf">function</span>(dist_name) {</span>
+<span id="cb29-23"><a href="#cb29-23"></a>  <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sample_sizes), <span class="cf">function</span>(i) {</span>
+<span id="cb29-24"><a href="#cb29-24"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb29-25"><a href="#cb29-25"></a>      <span class="at">Distribution =</span> dist_name,</span>
+<span id="cb29-26"><a href="#cb29-26"></a>      <span class="at">Sample_Size =</span> sample_sizes[i],</span>
+<span id="cb29-27"><a href="#cb29-27"></a>      <span class="at">Sample_Mean =</span> sample_means_list[[dist_name]][[i]]</span>
+<span id="cb29-28"><a href="#cb29-28"></a>    )</span>
+<span id="cb29-29"><a href="#cb29-29"></a>  }))</span>
+<span id="cb29-30"><a href="#cb29-30"></a>}))</span>
+<span id="cb29-31"><a href="#cb29-31"></a><span class="fu">names</span>(sample_means_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Distribution"</span>, <span class="st">"Sample Size"</span>, <span class="st">"Sample Mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="central-limit-theorem-2" class="title-slide slide level1 center">
+<h1>Central limit theorem</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Plot</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">ggplot</span>(sample_means_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Sample Mean</span><span class="st">`</span>, <span class="at">fill =</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Sample Size</span><span class="st">`</span>))) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">facet_grid</span>(Distribution <span class="sc">~</span> <span class="st">`</span><span class="at">Sample Size</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Central Limit Theorem Across Different Distributions"</span>,</span>
+<span id="cb30-7"><a href="#cb30-7"></a>       <span class="at">subtitle =</span> <span class="st">"Distribution of Sample Means for Different Sample Sizes and Distributions"</span>,</span>
+<span id="cb30-8"><a href="#cb30-8"></a>       <span class="at">x =</span> <span class="st">"Sample Mean"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">fill =</span> <span class="st">"Sample Size"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="ENVX1002-2024-Lecture-Topic04_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
 
 <section>
 <section id="thanks" class="title-slide slide level1 center">

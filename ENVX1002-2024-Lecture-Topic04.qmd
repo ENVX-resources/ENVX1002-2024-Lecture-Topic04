@@ -494,10 +494,165 @@ pnorm(4/3)
 
 
 
+
+
+# Sampling distributions
+
+- Here, we are dealing with 2 distributions:
+  - (1) Measurement: $X \sim N(300,50^2)$
+  - (2) Sample Mean of 10 measurements: $\overline X = \frac{1}{10}\Sigma_{i=1}^{10} X_i \sim ...$
+
+
+
+
+# How does the sampling distribution occur?
+
+- http://onlinestatbook.com/stat_sim/sampling_dist/
+- We have a population $X$
+  - We take a sample of size $n$ and we calculate the mean $\overline x_1$
+  - We take another sample of size $n$ and we calculate the mean $\overline x_2$
+  - We take another sample of size $n$ and we calculate the mean $\overline x_3$
+…
+If we sample all possibilities, then the sampling distribution of $\overline X = \frac{1}{10}\Sigma_{i=1}^{10} X_i$  is the distribution of $\{\overline x_1, \overline x_2, \overline x_3,...\}$
+
+
+
+
+
+# Distribution for a sample mean
+
+- if $X\sim{N(\mu,\sigma^2)}$
+- then $\overline X\sim{N(\mu,\frac{\sigma^2}{n})}$
+- Note that we call
+  - $\sigma$ the standard deviation such that $sd(X)=\sigma$, and
+  - $\sigma/\sqrt n$ the standard error such that $sd(\overline X)=\sigma/\sqrt n$
+- The standard error is important for making inference on a sample populations i.e. how close your sample mean $\overline x$ is to the population mean $\mu$
+
+
+
+
+# Example
+
+- Rye grass root growth (in mg dry weight) follows the distribution 
+$X \sim N(300,50^2)$.
+  - (1) One measurement is taken: how likely is it that the dry weight exceeds 320 mg?
+  - (2) 10 measurements are taken: how likely is it that the sample mean exceeds 320 mg?
+
+
+
+
+
+
+
+# Example
+
+- (1) X = Rye grass root growth $\sim N(300,50^2)$
+
+$P(X>320) = P\left(\frac{X-\mu}{\sigma},\frac{x-\mu}{\sigma}\right)=P\left(\frac{X-300}{50}>\frac{320-300}{50}\right)$
+$=P(Z > 0.4)$
+$=1-P(Z < 0.4)$
+$\approx 1-0.66 = 0.34$
+
+```{r}
+1-pnorm(0.4)
+```
+
+
+
+
+
+
+# Example
+
+- (1) $\overline X$ = Rye grass root growth $\sim N(300,\frac{50^2}{10})$
+
+$P(\overline X>320) = P\left(\frac{\overline X-\mu}{\frac{\sigma}{\sqrt{n}}},\frac{x-\mu}{\frac{\sigma}{\sqrt{n}}}\right)=P\left(\frac{\overline X-300}{\frac{50}{\sqrt{10}}}>\frac{320-300}{\frac{50}{\sqrt{10}}}\right)$
+$=P(Z > 1.26)$
+$=1-P(Z < 1.26)$
+$\approx 1-0.90 = 0.10$
+
+```{r}
+1-pnorm(1.26)
+```
+
+
+
+
+# Central limit theorem
+
+- what about if we sample from any old population such that $X\sim{??(\mu,\sigma^2)}$?
+- The it follows that $X\approx{N(\mu,\sigma^2)}$) and this is as a result of the Central Limit Theorem
+- The CLT is the most important result in this course, and in much of statistical theory.
+- The CLT requires few assumptions:
+  - We must have a `big enough' sample size n;
+  - We must have finite variance $\sigma^2<\infty$
+What is a `big enough' sample size? Some textbooks give a rule of thumb (eg $n > 25$ or $n > 30$), but it all depends on the type of distribution. If $X$ is reasonably symmetric, then n could be small; if $X$ is highly asymmetric, then n could be larger.
+
+
+
+
+
+
+# Central limit theorem
+
+- We can demonstrate this in R (you will do it in the practical)
+
+```{r}
+# Set parameters
+set.seed(123)
+number_of_samples <- 1000
+sample_sizes <- c(5, 10, 30, 50)
+distributions <- list(
+  "Normal" = rnorm,
+  "Exponential" = rexp,
+  "Chi-Squared (df = 2)" = function(n) rchisq(n, df = 2)
+)
+
+# Function to generate sample means from different distributions
+generate_sample_means <- function(sample_size, number_of_samples, dist_function) {
+  sapply(1:number_of_samples, function(x) mean(dist_function(sample_size)))
+}
+
+# Generate sample means for different sample sizes and distributions
+sample_means_list <- lapply(distributions, function(dist_function) {
+  lapply(sample_sizes, generate_sample_means, number_of_samples = number_of_samples, dist_function = dist_function)
+})
+
+# Convert to data frame for plotting
+sample_means_df <- do.call(rbind, lapply(names(distributions), function(dist_name) {
+  do.call(rbind, lapply(1:length(sample_sizes), function(i) {
+    data.frame(
+      Distribution = dist_name,
+      Sample_Size = sample_sizes[i],
+      Sample_Mean = sample_means_list[[dist_name]][[i]]
+    )
+  }))
+}))
+names(sample_means_df) <- c("Distribution", "Sample Size", "Sample Mean")
+```
+
+
+
+
+
+
+# Central limit theorem
+
+
+```{r}
+# Plot
+ggplot(sample_means_df, aes(x = `Sample Mean`, fill = as.factor(`Sample Size`))) +
+  geom_histogram(position = "identity", alpha = 0.6, bins = 30) +
+  facet_grid(Distribution ~ `Sample Size`) +
+  theme_minimal() +
+  labs(title = "Central Limit Theorem Across Different Distributions",
+       subtitle = "Distribution of Sample Means for Different Sample Sizes and Distributions",
+       x = "Sample Mean", y = "Frequency", fill = "Sample Size")
+```
+
 # Thanks!
 
 This presentation is based on the [SOLES Quarto reveal.js template](https://github.com/usyd-soles-edu/soles-revealjs) and is licensed under a [Creative Commons Attribution 4.0 International License][cc-by].
-
 
 <!-- Links -->
 [cc-by]: http://creativecommons.org/licenses/by/4.0/---
