@@ -650,6 +650,12 @@ ggplot(sample_means_df, aes(x = `Sample Mean`, fill = as.factor(`Sample Size`)))
        x = "Sample Mean", y = "Frequency", fill = "Sample Size")
 ```
 
+
+```{r, echo=FALSE}
+renderthis::to_pdf("ENVX1002-2024-Lecture-Topic04.html")
+```
+
+
 # Thanks!
 
 This presentation is based on the [SOLES Quarto reveal.js template](https://github.com/usyd-soles-edu/soles-revealjs) and is licensed under a [Creative Commons Attribution 4.0 International License][cc-by].
