@@ -388,7 +388,7 @@ pnorm(275, 284.3, 5.52)
 - One would expect around 5% of gestation times would be less than 275 days/
 - **Question for you:** Why might this be important, how can we use these results??
 
-![](images/Cows.jpg)
+![vxnaghiyev - stock.adobe.com](images/AdobeStock_685071114.jpeg)
 
 
 
@@ -490,7 +490,7 @@ pnorm(4/3)
  - 1. One measurement is taken: how likely is it that the dry weight exceeds 320 mg?
  - 2. 10 measurements are taken: how likely is it that the sample mean exceeds 320 mg?
 
-![](images\Rye_grass.png)
+![SERHII BLIK - stock.adobe.com](images\AdobeStock_364743175.jpeg)
 
 
 
