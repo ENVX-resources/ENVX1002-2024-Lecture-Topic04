@@ -64,7 +64,7 @@ self-contained: false # set to true once draft is complete
 
 ::: {.column width="50%"}
 
-![](images/Cows.jpg)
+![Eryk - stock.adobe.com](images/AdobeStock_283172794.jpeg)
 :::
 
 ::::
