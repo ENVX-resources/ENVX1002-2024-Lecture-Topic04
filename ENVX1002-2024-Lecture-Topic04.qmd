@@ -435,7 +435,9 @@ pnorm(4/3)
 
 # Percentiles of the Standard Normal Curve
 
-![](images\Percentile1.png)
+- 1 Standard deviation from the mean = 68% of the data
+
+![](images/Percentile1.png)
 
 
 
@@ -443,7 +445,9 @@ pnorm(4/3)
 
 # Percentiles of the Standard Normal Curve
 
-![](images\Percentile2.png)
+- 2 Standard deviations from the mean = 95% of the data
+
+![](images/Percentile2.png)
 
 
 
@@ -453,7 +457,9 @@ pnorm(4/3)
 
 # Percentiles of the Standard Normal Curve
 
-![](images\Percentile3.png)
+- 3 Standard deviations from the mean = 99.7% of the data
+
+![](images/Percentile3.png)
 
 
 
